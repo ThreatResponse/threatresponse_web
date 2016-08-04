@@ -1,0 +1,12 @@
+<h2>Recently Launched Instances</h2>
+<div id="recent-gauges"></div>
+
+<script type="text/javascript">
+    var gauges = new RecentGauges(
+      {{ asset.count_recently_launched_instances() }},
+      {{ inventory_count }},
+      {{ assets.unprocessed_assets()|length }}
+    )
+    google.charts.setOnLoadCallback(gauges.draw.bind(gauges));
+
+</script>

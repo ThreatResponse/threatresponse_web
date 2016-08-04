@@ -1,0 +1,134 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+
+<div class="acquire">
+  <div class="acquire__search">
+    {% include 'shared/_instance_search.html' %}
+  </div>
+  <div class="acquire__mitigate">
+    <form method="get" action="/mitigate">
+      <button class="mitigate-btn">Next Step: Mitigate <i class="material-icons">fast_forward</i></button>
+    </form>
+  </div>
+  <div class="" id="results"></div>
+</div>
+
+
+<script type="text/javascript">
+
+        function Search(){
+          this.q = $("#instance-search").val();
+          self = this;
+
+          $.getJSON("/search?",
+            {search: self.q},
+            function(data) {
+              console.log(data);
+              self.displayResults(data.results, data.queue);
+            }
+          );
+        };
+
+        Search.prototype.displayResults = function(results, queue){
+            var resultsHtml = "<table class='mui-table search_results'>"
+              + "<thead>"
+              + " <th> InstanceId </th> "
+              + " <th> Public IP Address </th> "
+              + " <th> Region </th> "
+              + " <th> Action </th> "
+              + " <th> Action </th> "
+              + "</thead>"
+              + "<tbody>"
+
+            $.each(results, function(i,item){
+              resultsHtml += "<tr>"
+                + "<td>"
+                + item.instance_id
+                + "</td>"
+                + "<td>"
+                + item.public_ip_address
+                + "</td>"
+                + "<td>"
+                + item.region
+                + "</td>"
+                + "<td>"
+                + "<button class='mui-btn--primary' onclick='activateModal(\"" + item.instance_id + "\")'>Add Credentials</button>"
+                + "</td>"
+                + "<td>"
+              if(queue.indexOf(item.instance_id)){
+                resultsHtml += "<button class='mui-btn--danger' id='case-button' onclick=(add_instance_to_queue('" + item.instance_id + "'))>Add to Case</button>"
+              } else {
+                resultsHtml += "<button class='mui-btn--danger' id='case-button' onclick=(remove_from_queue('" + item.instance_id + "'))>Remove</button>"
+              }
+              resultsHtml += "</td></tr>"
+
+            });
+
+            resultsHtml += "</table>"
+
+            $("#results").html(resultsHtml);
+
+        };
+
+        if ($("#instance-search").val() != ""){
+          search = new Search();
+        };
+
+
+        $("#instance-search").keyup(function(e){
+          new Search();
+        });
+  </script>
+
+  <script>
+    function activateModal(instance_id) {
+      // initialize modal element
+
+      var modalEl = document.createElement("IFRAME");
+      modalEl.setAttribute("src", "/credentials/" + instance_id);
+      modalEl.style.width = '640px';
+      modalEl.style.height = '480px';
+      modalEl.style.margin = '10% auto auto 25%';
+      modalEl.style.position = 'absolute';
+      modalEl.style.backgroundColor = '#fff';
+      // show modal
+      mui.overlay('on', modalEl);
+    }
+  </script>
+
+
+
+
+  <script type="text/javascript">
+    window.onload = function() {
+      {% if instance != None %}
+      $('#instance_search').trigger("keyup");
+      {% endif %}
+    };
+  </script>
+
+  <script type="text/javascript">
+
+    function add_instance_to_queue(instance){
+      console.log(instance);
+      $.post( "/api/processes", { instance: instance }, function(){
+        new Search();
+      });
+    }
+    function remove_from_queue(instance){
+      console.log(instance);
+      $.ajax({
+        url: '/api/processes',
+        data: { instance: instance },
+        type: 'DELETE',
+        success: function(){
+          new Search();
+        }
+      });
+
+    }
+  </script>
+
+{% endblock %}

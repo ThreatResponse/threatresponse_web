@@ -1,0 +1,83 @@
+<div class="analyze__disks">
+  <button class="log-2-timeline" disabled>Log2Timeline All</button>
+  <h3>Disks</h3>
+
+  <table class="snapshots">
+  <thead>
+    <th>Id</th>
+    <th>Instance</th>
+    <th>Volume</th>
+    <th>Action</th>
+  </thead>
+  <tbody>
+
+    {% set count = 1 %}
+    {% for region in snapshots.snapshots %}
+
+      {% if snapshots.snapshots[region] %}
+        <tr><td class="snapshots__section-title" colspan="4">
+          Snapshots for {{ region }}
+        </td></tr>
+
+        {% for snapshot in snapshots.snapshots[region] %}
+          <tr>
+            <td>{{ snapshot['id'] }}</td>
+            <td>{{ snapshots.instance(snapshot['id'])['id'] or "Instance Missing"}}</td>
+            <td>{{ snapshots.volume(snapshot['id'])}}</td>
+            <td>
+            {% if snapshots.snapshot_state(snapshot['id']) %}
+
+              {% if snapshots.snapshot_state(snapshot['id']) == "timesketch" %}
+                <!-- todo: what is the intent here? -->
+                <form action="http://127.0.0.1:5000" method="get">
+                  <button type="submit" value="Submit" id="{{ snapshot['id'] }}-tsview-btn" class="snapshot__action-web-asset"><i class="material-icons">web_asset</i></button>
+                </form>
+              {% else %}
+                <button id="{{ snapshot['id'] }}-ts-btn" class="snapshot__action-timeline" onclick="load_to_timesketch('{{ snapshot['id'] }}')"><i class="material-icons">timeline</i></button>
+              {% endif %}
+
+            {% else %}
+
+                {% if snapshots.in_progress(snapshot['id']) %}
+                  <button class="snapshot__action-empty" disabled><i class="material-icons">hourglass_empty</i></button>
+                {% else %}
+                  <button id="{{ snapshot['id'] }}-add-btn" class="snapshot__action-add" onclick="process_snapshot('{{ snapshot['id'] }}', '{{ region }}')">Add</button>
+                {% endif %}
+
+            {% endif %}
+            </td>
+          </tr>
+        {% endfor %}
+
+      {% set count = count + 1 %}
+    {% endif %}
+
+  {% endfor %}
+  </tbody>
+  </table>
+</div>
+
+<!-- todo: extract me -->
+<script type="text/javascript">
+function process_snapshot(snapshot_id, region){
+    $.get("/api/snapshot/" + snapshot_id + "?action=process&region=" + region , function(data){
+      var el = document.querySelector('#' + snapshot_id + '-add-btn');
+      console.log(el)
+      var newEl = document.createElement('p');
+      newEl.innerHTML = '<button class="snapshot__action-empty" disabled><i class="material-icons">hourglass_empty</i></button>';
+      el.parentNode.replaceChild(newEl, el);
+   });
+
+  }
+
+  function load_to_timesketch(snapshot_id){
+      $.get("/api/snapshot/" + snapshot_id + "?action=timesketch" , function(data){
+        var el = document.querySelector('#' + snapshot_id + '-ts-btn');
+        console.log(el)
+        var newEl = document.createElement('p');
+        newEl.innerHTML = '<button class="snapshot__action-timeline" disabled><i class="material-icons">timeline</i></button>';
+        el.parentNode.replaceChild(newEl, el);
+     });
+
+    }
+</script>

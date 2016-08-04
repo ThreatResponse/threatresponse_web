@@ -1,0 +1,13 @@
+.instance-search {
+  @extend .mui-form--inline;
+  button {
+    @extend .mui-btn;
+    padding: 0 $mui-btn-padding-horizontal / 2;
+  }
+  .mui-textfield {
+    width: 225px;
+  }
+  label {
+    font-weight: bold;
+  }
+}

@@ -1,0 +1,36 @@
+header {
+  @extend .mui-appbar;
+  @extend .mui--z1;
+  @extend .mui--text-light;
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: 2;
+}
+
+.nav {
+  @extend .mui-container-fluid;
+  max-width: $mui-container-xl;
+}
+
+.nav table {
+  width: 100%;
+}
+.nav tr {
+  @extend .mui--appbar-height;
+}
+.nav__title {
+  @extend .mui--text-title;
+  img {
+    height: $mui-appbar-height - 10px;
+  }
+}
+.nav__links {
+  text-align: right;
+  margin-bottom: 0;
+}
+.nav__links ul {
+  @extend .mui-list--inline;
+  @extend .mui--text-body2;
+}

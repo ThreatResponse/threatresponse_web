@@ -1,0 +1,56 @@
+
+<div class="advise__category">
+  <h3 class="advise__category-head">
+
+    <span class="advise__category-name">
+      <i class="material-icons"></i>
+      {{category_name}}
+    </span>
+    <span class="advise__category-failures count-{{ total_failures }}">
+      <i class="material-icons"></i>
+      {{ total_failures }} Failures
+    </span>
+  </h3>
+
+  <div class="advise__category--section advise__category--section-general count-{{general_stats.total_count}}">
+    <h4 class="advise__category-section_name">
+      <i class="material-icons"></i>
+      <strong>General Checks:</strong>
+      Failed {{general_stats.failure_count}} of {{general_stats.total_count}}
+    </h4>
+    <ul>
+    {{ #generals }}
+      <li class="{{ status }}">
+        <i class="pass material-icons">verified_user</i>
+        <i class="fail material-icons">error</i>
+        <span> {{ reason }} </span>
+      </li>
+    {{ /generals }}
+    </ul>
+  </div>
+
+  <div class="advise__category--section advise__category--section-collection count-{{collection_stats.resource_count}}">
+    <h4 class="advise__category-section_name">
+      <i class="material-icons"></i>
+      <strong>Checked {{collection_stats.resource_count}} Resources:</strong>
+      Found {{collection_stats.failure_count}} to be investigated.
+    </h4>
+    <ul>
+      {{ #collections }}
+        <li>
+          <span class="resource_name"> {{ resource_name }} </span>
+
+          <ul class="subchecks">
+            {{ #subchecks }}
+              <li class="{{ status }}">
+                {{ reason }}
+              </li>
+            {{ /subchecks }}
+            {{ ^subchecks }}<li>{{ reason }}</li>{{ /subchecks }}
+          </ul>
+        </li>
+      {{ /collections }}
+    </ul>
+  </div>
+
+</div>

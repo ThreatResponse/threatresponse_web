@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <div class="mitigate">
+    <h2>Instances to Mitigate</h2>
+
+    <button class="mitigate-btn"><i class="material-icons" disabled>security</i> Mitigate Batch</button>
+    <div class="mitigate__warn">Note these will be severely limited by restrictive network access and powered down when mitigation is complete.</div>
+
+
+    <table class="mui-table">
+      <thead>
+        <tr>
+          <th>Instance_Id</th>
+          <th>Region</th>
+          <th>Public IP</th>
+          <th>Credentials</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for instance in inventory %}
+        <tr>
+          <td>{{ instance['instance_id'] }}</td>
+          <td>{{ instance['region'] }}</td>
+          <td>{{ instance['public_ip_address'] }}</td>
+          {% if credentials.exists(instance['instance_id']) %}
+          <td><i class="material-icons">check_circle</i> </td>
+          <td><button class="mui-btn mui-btn--raised mui-btn--primary">Mitigate</button></td>
+          {% else %}
+          <td><i class="material-icons">priority_high</i> </td>
+          <td><a href="/acquire?instance-search={{ instance['instance_id'] }}" class="mui-btn mui-btn--danger">Edit</a></td>
+          {% endif %}
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+{% endblock %}

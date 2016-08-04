@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class='tools'>
+    {% include 'shared/_instance_search.html' %}
+    <form class="refresh-inventory">
+      <div class="mui-textfield">
+        <button class="refresh-inventory__button">
+          Refresh Inventory
+        </button>
+      </div>
+    </form>
+</div>
+
+<div class="dataviz">
+  <div class="dataviz__column">
+    {% include 'home/_treemap.html' %}
+  </div>
+  <div class="dataviz__column">
+    {% include 'home/_recent_instances_gauge.html' %}
+    {% include 'home/_ami_homogeny_gauge.html' %}
+  </div>
+</div>
+
+
+<script type="text/javascript">
+$('.refresh-inventory__button').click( function(e) {e.preventDefault(); $.get("/api/inventory?type=refresh"); return false; } )
+</script>
+
+{% endblock %}

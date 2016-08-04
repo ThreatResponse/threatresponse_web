@@ -1,0 +1,16 @@
+<h3>AMI Homegeny</h3>
+<div id="homogenychart"></div>
+
+<script type="text/javascript">
+
+  $(function() {
+    var homogenyGauge = new HomogenyGauge([
+      {% for ami in ami_count %}
+        ['{{ami}}', {{ami_count[ami]}}],
+      {% endfor %}
+    ]);
+
+    google.charts.setOnLoadCallback(homogenyGauge.draw.bind(homogenyGauge));
+  });
+
+</script>

@@ -1,0 +1,49 @@
+#slideout-console {
+  position: absolute;
+  width: 720px;
+  height: 520px;
+  top: 28%;
+  right:-690px;
+}
+
+#console-btn {
+  position: absolute;
+  top: 0; left: 0;
+  height: 25px;
+  width: 25px;
+  border-radius: 5px;
+  color: white;
+  background: #808080;
+}
+
+#console-content {
+  background-color: black;
+  float:left;
+}
+
+.analyze table {
+  @extend .mui-table
+}
+
+.analyze__nav {
+  @extend .mui-col-md-4 ;
+  text-align: center;
+  a:hover {
+    text-decoration: none;
+  }
+}
+.analyze__nav__btn {
+  @extend .mui-btn, .mui-btn--large, .mui-btn--fab;
+}
+.analyze__nav__btn--memory { @extend .mui-btn--primary }
+.analyze__nav__btn--disk { @extend .mui-btn--danger }
+.analyze__nav__btn--logs { @extend .mui-btn--accent }
+
+.analyze__nav__label {
+  color: $mui-accent-color;
+}
+
+.analyze__memory button {
+  @extend .mui-btn--fab, .mui-btn--primary;
+}
+

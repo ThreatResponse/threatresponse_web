@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+
+<h1>Securing your AWS infrastucture</h1>
+<div class="advise">
+</div>
+
+
+<script>
+$(function() {
+  $.get('/api/advisor', function(data){
+    new Advise(data).render()
+  });
+});
+
+</script>
+{% endblock %}
+

@@ -1,0 +1,15 @@
+.acquire__search {
+  @extend .mui-col-md-6;
+}
+
+.acquire__mitigate {
+  @extend .mui-col-md-6;
+  text-align: right;
+}
+
+.mitigate-btn {
+  @extend .mui-btn, .mui-btn--accent;
+}
+
+
+

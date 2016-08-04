@@ -1,0 +1,109 @@
+.advise__category {
+  @extend .mui-panel
+}
+.advise__category h3 {
+  @extend .mui--text-title;
+  color: $mui-primary-color;
+  margin-top: 0
+}
+.advise__category-head {
+  @extend .mui-row;
+
+}
+.advise__category-head span {
+  @extend .mui-col-md-2;
+}
+
+.advise__category-name .material-icons:before {
+  content: "add";
+  vertical-align: sub;
+}
+.expand-category .advise__category-name .material-icons:before {
+  content: "remove";
+  vertical-align: sub;
+}
+
+.advise__category-section_name .material-icons:before {
+  content: "add";
+  vertical-align: sub;
+}
+.expand-section .advise__category-section_name .material-icons:before {
+  content: "remove";
+  vertical-align: sub;
+}
+
+.advise__category--section {
+  margin: 1em 0 0 1em;
+}
+
+.advise__category h4 {
+  @extend .mui--divider-bottom;
+}
+
+.advise__category-failures {
+  color: $mui-danger-color;
+  margin-left: 1em;
+  & .material-icons:before {
+    content: "error";
+    vertical-align: sub;
+  }
+  &.count-0 {
+    color: $green;
+    & .material-icons:before {
+      content: "verified_user";
+    }
+  }
+}
+
+.advise__category--section {
+  display: none;
+  .expand-category & {
+    display: block;
+  }
+}
+
+.advise__category--section ul {
+  list-style-type: none;
+  display: none;
+}
+.advise__category--section.expand-section ul {
+  display: block;
+}
+
+.advise__category li i {
+  vertical-align: middle;
+}
+.advise__category li span {
+  display: inline-block;
+  line-height: 24px;
+}
+
+.count-0 {
+  display: none;
+}
+
+.resource_name {
+  font-weight: bold;
+}
+
+.subchecks {
+  padding-left: 1em;
+}
+
+.subchecks li {
+  @extend .mui--text-caption;
+}
+
+.advise__category--section-collection li.PASS {
+  display: none;
+}
+
+li.PASS i, li.FAIL i {display: none;}
+li.PASS .pass {
+  display: inline-block;
+  color: $green;
+}
+li.FAIL .fail {
+  display: inline-block;
+  color: $mui-danger-color;
+}

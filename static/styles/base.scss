@@ -1,0 +1,37 @@
+$green: #64dd17;
+
+.mui--text-light {
+  a, a:hover {
+    @extend .mui--text-light;
+  }
+}
+
+#content-wrapper {
+  @extend .mui-container-fluid;
+  max-width: $mui-container-xl;
+
+  padding-top: $mui-appbar-height-xs-portrait;
+  min-height: 100%;
+
+  /* sticky footer */
+  margin-bottom: -100px;
+  padding-bottom: 100px;
+}
+
+@media (orientation: landscape) and (max-height: $x-mobile-breakpoint) {
+  #content-wrapper { padding-top: $mui-appbar-height-xs-landscape; }
+}
+
+@media (min-width: $x-mobile-breakpoint) {
+  #content-wrapper {
+    padding-top: $mui-appbar-height;
+  }
+}
+
+button {
+  @extend .mui-btn;
+}
+button .material-icons {
+  line-height: inherit;
+  vertical-align: top;
+}

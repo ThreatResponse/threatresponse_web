@@ -1,0 +1,22 @@
+<h3>Logs</h3>
+<table>
+  <thead>
+    <th>Instance</th>
+    <th>Acquisition Log</th>
+    <th>Console Logs</th>
+    <th>Screenshot</th>
+  </thead>
+  {%  for region in inventory.regions %}
+    {% for instance in inventory.processed_instances[region] %}
+      <tr>
+        <td>{{ instance['instance_id'] }}</td>
+        <td>{{ logfile.acquisition_log(instance['instance_id']) }}</td>
+        <td>{{ logfile.console_log(instance['instance_id']) }}</td>
+        <td>{{ logfile.screenshot(instance['instance_id']) }}</td>
+      </tr>
+      {% endfor %}
+  {% endfor %}
+  <tbody>
+  </tbody>
+</table>
+

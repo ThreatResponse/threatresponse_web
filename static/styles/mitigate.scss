@@ -1,0 +1,10 @@
+.migitigate h2 {
+  @extend .mui--text-accent, .mui--text-headline
+}
+.mitigate__warn {
+  @extend .mui--text-danger, .mui--text-accent-secondary, .mui--text-caption;
+}
+
+.mitigate .mitigate-btn {
+  float: right
+}

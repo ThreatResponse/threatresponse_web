@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="analyze">
+
+    <h2>Process and Analyze Assets for {{ asset.case_number }}</h2>
+
+    <div class="mui-row">
+      <div class="analyze__nav">
+        <a href="/analyze?view=[memory]">
+          <div class="analyze__nav__btn analyze__nav__btn--memory">
+              <i style="font-size: 60px;" class="material-icons">fingerprint</i>
+          </div>
+          <div class="analyze__nav__label">Memory</div>
+        </a>
+
+      </div>
+      <div class="analyze__nav">
+        <a href="/analyze?view=[disks]">
+          <div class="analyze__nav__btn analyze__nav__btn--disk">
+            <i style="font-size: 60px;" class="material-icons">track_changes</i>
+          </div>
+          <div class="analyze__nav__label">Disk</div>
+        </a>
+
+      </div>
+      <div class="analyze__nav">
+        <a href="/analyze?view=[logs]">
+          <div class="analyze__nav__btn analyze__nav__btn--logs">
+              <i style="font-size: 60px;" class="material-icons">donut_small</i>
+          </div>
+          <div class="analyze__nav__label">Logs</div>
+        </a>
+
+      </div>
+    </div>
+
+  {% if disks %}
+    {% include 'analyze/_analyze-disks.html' %}
+  {% endif %}
+
+  {% if logs %}
+    {% include 'analyze/_analyze-logs.html' %}
+  {% endif %}
+
+  {% if memory %}
+    {% include 'analyze/_analyze-memory.html' %}
+  {% endif %}
+</div>
+
+{% endblock %}

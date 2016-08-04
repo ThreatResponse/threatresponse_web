@@ -1,0 +1,30 @@
+.dataviz {
+  @extend .mui-row;
+}
+.dataviz__column {
+  @extend .mui-col-md-6;
+}
+
+.tools {
+  text-align: right;
+
+  form {
+    display: inline-block;
+  }
+}
+.refresh-inventory__button {
+  @extend .mui-btn, .mui-btn--small, .mui-btn--primary, .mui-btn--raised;
+}
+
+#treemap {
+  width: 100%;
+}
+
+#recent-gauges {
+  position: relative;
+  width: 100%;
+}
+
+#homogenychart {
+  width: 100%;
+}

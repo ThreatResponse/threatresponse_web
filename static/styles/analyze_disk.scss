@@ -1,0 +1,19 @@
+.log-2-timeline {
+  @extend .mui-btn--accent;
+  float: right;
+}
+
+.snapshots__section-title {
+  @extend .mui--text-title;
+  border-top: 1px solid grey;
+  color: $mui-primary-color;
+}
+
+.snapshots button { @extend .mui-btn--fab; }
+.snapshot__action-web-asset {
+  @extend .mui-btn--primary;
+  background-color: #009900;
+}
+.snapshot__action-timeline { @extend .mui-btn--primary; }
+.snapshot__action-empty { @extend .mui-btn--primary; }
+.snapshot__action-add { @extend .mui-btn--accent; }

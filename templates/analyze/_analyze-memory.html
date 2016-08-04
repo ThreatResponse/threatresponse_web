@@ -1,0 +1,58 @@
+
+<h3>Memory</h3>
+
+<table class="analyze__memory">
+  <thead>
+    <th>File</th>
+    <th>Size</th>
+    <th>Date Created UTC</th>
+    <th>Analyze</th>
+  </thead>
+  <tbody>
+    {% for memory in memory_dumps.memory_files %}
+      <tr>
+        <td>{{ memory}}</td>
+        <td>{{ file_actions.get_size(memory)}} MB</td>
+        <td>{{ file_actions.create_date(memory)}}</td>
+        <td>
+          {% if memory_dumps.on_disk(memory) %}
+            <button id="{{ memory }}-btn" disabled><i class="material-icons">timeline</i></button>
+          {% else %}
+            <button id="{{ memory }}-btn" onclick="push_to_volatility('{{ memory}}')"><i class="material-icons">timeline</i></button>
+          {% endif %}
+        </td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+
+<div id="slideout-console">
+    <div id="console-content"></div>
+    <div id="console-btn"><i class="material-icons">tab</i></div>
+</div>
+
+<!-- todo: extract me -->
+<script type="text/javascript">
+  function push_to_volatility(lime_file){
+    $.get("/api/memory/" + lime_file + "?action=volatility");
+  }
+</script>
+
+<script type="text/javascript">
+$(function () {
+    $("#console-btn").click(function () {
+     if($(this).parent().css("right") == "319.25px"){
+        $("#console-content").hide("");
+        $(this).parent().animate({right:'-690px'}, {queue: false, duration: 500});
+     } else {
+        $(this).parent().animate({right:'319.25px'}, {queue: false, duration: 500});}
+        $("#console-content").show("");
+        if($(this).parent().css("right") != "319.25px") {
+        $("#console-content").html("<iframe id='console' src='http://127.0.0.1:3000' width='650px' height='515px'></iframe>");
+        }
+        else { $('#console').remove(); }
+
+    });
+});
+</script>

@@ -1,0 +1,13 @@
+<h2>Instances by Region</h2>
+<div id="treemap"></div>
+
+<script type="text/javascript">
+  $(function() {
+    var treeMap = new TreeMap([
+      {% for region in countbyregion %}
+        ['{{ region.keys()[0] }}', 'Global', {{ region.values()[0] }}, {{ region.values()[0] }}],
+      {% endfor %}
+    ]);
+    google.charts.setOnLoadCallback(treeMap.draw.bind(treeMap));
+  });
+</script>
